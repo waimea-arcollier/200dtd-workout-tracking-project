@@ -10,8 +10,8 @@ by YOUR NAME HERE
 This website allows the user to update, log, and track workouts.  
 
 - Display of workouts
-- Feature 2 here
-- Feature 3 here
+- Graph of reps progression for each workout
+- Instructions for each workout
 - Feature 4 here
 - Feature 5 here
 
