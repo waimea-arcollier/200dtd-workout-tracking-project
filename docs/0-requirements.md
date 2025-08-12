@@ -7,7 +7,7 @@ My user currently tracks his workouts on a sheet of paper and would like an app 
 
 ## End-User Requirements
 
-Replace this text with a description of your typical end-users and their specific needs / expectations / requirements.
+My end user needs a way to see his past workouts, update his rep goals, and log the days he completes each workout.
 
 
 ## Proposed Solution
