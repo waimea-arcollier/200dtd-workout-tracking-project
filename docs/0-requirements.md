@@ -29,7 +29,7 @@ In order for the web app to be used by the end-user it has to function well with
 
 ### Impact / Considerations
 
-
+I will need to consistently test the features of my app to ensure it is functional. This implication will make me think about the way 
 
 
 

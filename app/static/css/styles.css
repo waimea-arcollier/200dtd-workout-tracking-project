@@ -1,18 +1,63 @@
 /*=====================================================
   User stylesheet - Building upon PicoCSS
 =====================================================*/
-
-
-/* ABOUT PAGE -------------------------------------------- */
-
-#tech-stack {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+:root {
+    --text: #e0f9f9;
+    --background: #061d1f;
+    --header: #082022
+    --primary: #90ebeb;
+    --secondary: #1a588f;
+    --accent: #3b71db;
 }
 
-#tech-stack article {
-    flex: 1;
+/* BODY -------------------------------------------- */
+header#info_header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: #082022;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4rem;
+}
+
+header#info_header h2{
+    padding-top: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 2rem;
+}
+
+main{
+    margin-top: 4rem;
+}
+
+article#workout_table{
+    background-color: var(--secondary);
+}
+article#workout_table table{
+    background: var(--secondary);
+}
+
+/* FOOTER -------------------------------------------- */
+
+body > footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: unset;
+    background-color: #082022;
+}
+
+
+body > footer nav ul {
+    width: 100%;
+    justify-content: space-evenly;
+    margin: 0 !important;
 }
 
 

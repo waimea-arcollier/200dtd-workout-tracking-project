@@ -29,8 +29,16 @@ init_datetime(app)  # Handle UTC dates in timestamps
 # Home page route
 #-----------------------------------------------------------
 @app.get("/")
-def index():
-    return render_template("pages/home.jinja")
+def show_all_workouts():
+    with connect_db() as client:
+        # Get all the things from the DB
+        sql = "SELECT id, name, reps_target FROM workouts ORDER BY name ASC"
+        params = []
+        result = client.execute(sql, params)
+        workouts = result.rows
+
+        # And show them on the page
+        return render_template("pages/home.jinja", workouts=workouts)
 
 
 #-----------------------------------------------------------

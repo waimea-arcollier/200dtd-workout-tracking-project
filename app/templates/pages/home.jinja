@@ -10,29 +10,39 @@
 
 {% block title %}
 
-    Flask Demo
+    Workout app
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Flask Demo App with Turso DB</h1>
 
-    <p>This is a simple Flask app that connects to a Turso database to save and retrieve data. This can be used as the basis of your web app.</p>
+    <h2>Workouts completed:</h2>
 
-    <p>It includes...</p>
+    <article id="workout_table">
+        <table>
+            <tr>
+                <th>Workout</th>
+                <th>Reps Goal</th>
+            </tr>
+            {% for workout in workouts %}
 
-    <ul>
-        <li>Example routes</li>
-        <li>Example static pages</li>
-        <li>Missing page and server error pages</li>
-        <li>DB connection and error handling</li>
-        <li>Example CRUD actions: Create and Delete</li>
-        <li>Flash messages for information</li>
-    </ul>
-
-    <a href="/things" role="button">Go to the Things...</a>
+                <tr>
+                    <td>
+                    <a href="/workout/{{ workout.id }}">
+                        {{ workout.name }}
+                    </a>
+                    </td>
+                    <td>
+                    <a href="/workout/{{ workout.id }}">
+                        {{ workout.reps_target }}
+                    </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </article>
 
 {% endblock %}
 
