@@ -23,21 +23,33 @@
     <article id="workout_table">
         <table>
             <tr>
-                <th>Workout</th>
-                <th>Reps Goal</th>
+                <th colspan="2">Workout</th>
+                <th>Reps</th>
+                <th></th>
             </tr>
             {% for workout in workouts %}
 
-                <tr>
-                    <td>
-                    <a href="/workout/{{ workout.id }}">
-                        {{ workout.name }}
-                    </a>
+                <tr class="workout">
+                    
+
+                    <td class="workout-icon">
+                        ⓘ 
                     </td>
-                    <td>
-                    <a href="/workout/{{ workout.id }}">
+                    
+                    <td class="workout-name">
+                        <a href="/workout/{{ workout.id }}">
+                            {{ workout.name }}
+                        </a>
+                    </td>
+                    
+                    <td class="workout-reps">
                         {{ workout.reps_target }}
-                    </a>
+                    </td>
+
+                    <td class="workout-form">
+                        <form method="POST" action="/workout/{{ workout.id }}">
+                            <input name="done" type="checkbox">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}

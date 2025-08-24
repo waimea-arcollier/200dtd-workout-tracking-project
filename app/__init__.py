@@ -52,7 +52,7 @@ def about():
 #-----------------------------------------------------------
 # Things page route - Show all the things, and new thing form
 #-----------------------------------------------------------
-@app.get("/things/")
+@app.get("/history/")
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
@@ -62,7 +62,7 @@ def show_all_things():
         things = result.rows
 
         # And show them on the page
-        return render_template("pages/things.jinja", things=things)
+        return render_template("pages/history.jinja", things=things)
 
 
 #-----------------------------------------------------------
