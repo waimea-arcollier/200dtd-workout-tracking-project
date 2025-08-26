@@ -32,7 +32,21 @@ init_datetime(app)  # Handle UTC dates in timestamps
 def show_all_workouts():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT id, name, reps_target FROM workouts ORDER BY name ASC"
+        sql = """
+            SELECT 
+                workouts.id, 
+                workouts.name, 
+                workouts.reps_target,
+                sessions.date
+                
+            FROM workouts 
+            LEFT JOIN sessions ON sessions.workout_id = workouts.id
+            
+            WHERE sessions.date NOT current_date
+            
+            ORDER BY name ASC
+        
+        """
         params = []
         result = client.execute(sql, params)
         workouts = result.rows
@@ -44,43 +58,51 @@ def show_all_workouts():
 #-----------------------------------------------------------
 # About page route
 #-----------------------------------------------------------
-@app.get("/about/")
-def about():
-    return render_template("pages/about.jinja")
-
-
-#-----------------------------------------------------------
-# Things page route - Show all the things, and new thing form
-#-----------------------------------------------------------
 @app.get("/history/")
+def about():
+    with connect_db() as client:
+        # Get all the things from the DB
+        sql = "SELECT id, name FROM workouts "
+        params = []
+        result = client.execute(sql, params)
+        workouts = result.rows
+
+        # And show them on the page
+        return render_template("pages/history.jinja", workouts=workouts)
+
+
+#-----------------------------------------------------------
+# New workout form
+#-----------------------------------------------------------
+@app.get("/new/")
 def show_all_things():
     with connect_db() as client:
         # Get all the things from the DB
-        sql = "SELECT id, name FROM things ORDER BY name ASC"
+        sql = "SELECT id, name FROM workouts "
         params = []
         result = client.execute(sql, params)
-        things = result.rows
+        workouts = result.rows
 
         # And show them on the page
-        return render_template("pages/history.jinja", things=things)
+        return render_template("pages/new.jinja", workouts=workouts)
 
 
 #-----------------------------------------------------------
-# Thing page route - Show details of a single thing
+# Individual Workout
 #-----------------------------------------------------------
 @app.get("/thing/<int:id>")
 def show_one_thing(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, price FROM things WHERE id=?"
+        sql = "SELECT id, name, video_link, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
 
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
-            thing = result.rows[0]
-            return render_template("pages/thing.jinja", thing=thing)
+            workout = result.rows[0]
+            return render_template("pages/workout.jinja", workout=workout)
 
         else:
             # No, so show error
@@ -94,20 +116,22 @@ def show_one_thing(id):
 def add_a_thing():
     # Get the data from the form
     name  = request.form.get("name")
-    price = request.form.get("price")
+    instruction_video = request.form.get("instruction_video")
+    reps_target  = request.form.get("reps_target")
+    notes  = request.form.get("notes")
 
-    # Sanitise the text inputs
+    # Sanitize the text inputs
     name = html.escape(name)
+    notes = html.escape(notes)
 
     with connect_db() as client:
         # Add the thing to the DB
-        sql = "INSERT INTO things (name, price) VALUES (?, ?)"
-        params = [name, price]
+        sql = "INSERT INTO workouts (name, video_link, reps_target, notes) VALUES (?, ?, ?, ?)"
+        params = [name, instruction_video, reps_target, notes]
         client.execute(sql, params)
 
         # Go back to the home page
-        flash(f"Thing '{name}' added", "success")
-        return redirect("/things")
+        return redirect("/")
 
 
 #-----------------------------------------------------------

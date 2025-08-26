@@ -1,7 +1,9 @@
 {#=====================================================
-  Things list page
-  - List of things passed in as 'things' array
-  - Form for adding a new thing
+  About page (DEMO)
+  - Information about Flask
+  - Information about Jinja
+  - Information about Turso
+  - Information about PicoCSS
 =====================================================#}
 
 {% extends 'pages/base.jinja' %}
@@ -9,63 +11,40 @@
 
 {% block title %}
 
-    Flask Demo - All Things
+    Flask Demo - About Flask and Jinja
 
 {% endblock %}
 
 
 {% block content %}
 
-    <h1>Things...</h1>
+        <h3>Days completed:</h3>
+        
+        <article>
+            <header>
+                <img src="/static/images/flask.webp" alt="Flask Logo">
+            </header>
+
+            <p>Flask is a <strong>web back-end application framework</strong>, written in <strong>Python</strong>. Created in 2010, Flask is regularly voted the most popular Python web framework. Applications that use Flask include Pinterest and LinkedIn.</p>
+
+            <footer>
+                <p>Find out more about <a href="https://flask.palletsprojects.com/en/stable/">Flask</a></p>
+            </footer>
+        </article>
 
 
-    <article>
+        <article>
+            <header>
+                <img src="/static/images/jinja2.png" alt="Jinja Logo">
+            </header>
 
-        <ul>
-            {% for thing in things %}
+            <p>Jinja is a <strong>templating engine</strong>. Special placeholders in the template allow data to be passed into the template and programmatic operations (e.g. conditions, loops, etc.) using a syntax similar to Python.</p>
 
-                <li>
-                    <a href="/thing/{{ thing.id }}">
-                        {{ thing.name }}
-                    </a>
-                </li>
+            <footer>
+                <p>Find out more about <a href="https://jinja.palletsprojects.com/en/stable/">Jinja</a></p>
+            </footer>
+        </article>
 
-            {% else %}
-
-                <p>None!</p>
-
-            {% endfor %}
-        </ul>
-
-    </article>
-
-
-    <article>
-
-        <h3>Add a New Thing...</h3>
-
-        <form action="/add" method="POST">
-
-            <input
-                type="text"
-                name="name"
-                placeholder="Name of new thing"
-                required
-            >
-
-            <input
-                type="number"
-                name="price"
-                min="0"
-                placeholder="Price in dollars"
-                required
-            >
-
-            <button>Add the Thing</button>
-
-        </form>
-
-    </article>
 
 {% endblock %}
 

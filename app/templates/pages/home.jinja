@@ -23,9 +23,9 @@
     <article id="workout_table">
         <table>
             <tr>
-                <th colspan="2">Workout</th>
-                <th>Reps</th>
-                <th></th>
+                <th colspan="2" class="workout-title">Workout</th>
+                <th class="reps-title">Reps</th>
+                <th class="form-title"></th>
             </tr>
             {% for workout in workouts %}
 
@@ -33,7 +33,7 @@
                     
 
                     <td class="workout-icon">
-                        ⓘ 
+                        ⓘ
                     </td>
                     
                     <td class="workout-name">
@@ -55,6 +55,8 @@
             {% endfor %}
         </table>
     </article>
+
+    <p role="button">Help</p>
 
 {% endblock %}
 

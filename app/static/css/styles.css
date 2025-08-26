@@ -2,12 +2,12 @@
   User stylesheet - Building upon PicoCSS
 =====================================================*/
 :root {
-    --text: #e0f9f9;
+    --text: #D1E6E6;
     --background: #061d1f;
     --header: #082022;
-    --secondary: #1a588f;
-    --accent: #3b71db;
-    --primary: #90ebeb;
+    --secondary: #2E475D;
+    --accent: #27967F;
+    --primary: #80CCCC;
 }
 
 /* BODY -------------------------------------------- */
@@ -22,6 +22,7 @@ header#info_header {
     left: 0;
     right: 0;
     height: 4rem;
+    border-bottom: 2px solid var(--primary);
 }
 
 header#info_header h2{
@@ -38,16 +39,62 @@ main{
 /* WORKOUTS -------------------------------------------- */
 #workout_table{
     margin: 5px;
+    background-color: var(--background);
 }
 
 #workout_table table{
+    border-left: 2px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
+    background-color: var(--background);
+}
+
+#workout_table .workout-title {
     border: 2px solid var(--accent);
-    background: var(--secondary);
+    color: var(--text);
+    background: var(--background);
+}
+
+#workout_table .reps-title {
+    border: 2px solid var(--accent);
+    color: var(--text);
+    background: var(--background);
+}
+
+#workout_table .form-title {
+    border-top: 2px solid var(--background);
+    border-right: 2px solid var(--background);
+    border-bottom: 2px solid var(--accent);
+    background: var(--background);
 }
 
 #workout_table .workout-name a {
     color: var(--text);
 }
+
+#workout_table .workout-name{
+    border-right: 2px solid var(--accent);
+    background: var(--secondary);
+}
+
+#workout_table .workout-icon {
+    color: var(--text);
+    background: var(--secondary);
+}
+
+#workout_table .workout-reps {
+    text-align: center;
+    color: var(--text);
+    background: var(--background);
+}
+
+#workout_table .workout-form {
+    border-left: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    color: var(--text);
+    background: var(--secondary);
+}
+/* NEW WORKOUT FORM -------------------------------------------- */
+
 
 /* FOOTER -------------------------------------------- */
 

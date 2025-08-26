@@ -1,0 +1,61 @@
+{#=====================================================
+  Things list page
+  - List of things passed in as 'things' array
+  - Form for adding a new thing
+=====================================================#}
+
+{% extends 'pages/base.jinja' %}
+
+
+{% block title %}
+
+    Flask Demo - All Things
+
+{% endblock %}
+
+
+{% block content %}
+    <h3>New Workout</h3>
+
+    <article>
+
+        <form action="/add" method="POST" class="new_workout">
+
+            <h5>Name</h5>
+            <input
+                type="text"
+                name="name"
+                placeholder="Name"
+                required
+            >
+
+            <h5>Instruction Video</h5>
+            <input
+                type="text"
+                name="video_link"
+                placeholder="https://..."
+            >
+
+            <h5>Reps Goal</h5>
+            <input
+                type="int"
+                name="reps_target"
+                min="0"
+                placeholder="0"
+            >
+            
+            <h5>Notes</h5>
+            <input
+                type="text"
+                name="notes"
+                placeholder="Notes"
+            >
+
+            <button class="submit">Add Workout</button>
+
+        </form>
+
+    </article>
+
+{% endblock %}
+
