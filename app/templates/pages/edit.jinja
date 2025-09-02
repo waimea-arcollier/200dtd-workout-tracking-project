@@ -10,7 +10,7 @@
 {% block title %}
 
     <header id="info_header">
-            <h2>Hello</h2>
+            <h2>{{workout.name}}</h2>
             <h2>date</h2>
     </header>
 
@@ -18,25 +18,24 @@
 
 
 {% block content %}
-    <h3>New Workout</h3>
+    <h3>Edit Workout</h3>
 
     <article>
 
-        <form action="/add" method="POST" class="new_workout">
+        <form action="/edit/{{workout.id}}" method="POST" class="edit_workout">
 
             <h5>Name</h5>
             <input
                 type="text"
-                name="name"
-                placeholder="Name"
-                required
+                value="{{workout.name}}"
+                disabled
             >
 
             <h5>Instruction Video</h5>
             <input
                 type="text"
                 name="video_link"
-                placeholder="https://..."
+                value="{{workout.video_link}}"
             >
 
             <h5>Reps Goal</h5>
@@ -44,21 +43,22 @@
                 type="int"
                 name="reps_target"
                 min="0"
-                placeholder="0"
+                value="{{workout.reps_target}}"
             >
             
             <h5>Notes</h5>
             <input
                 type="text"
                 name="notes"
-                placeholder="Notes"
+                value="{{workout.notes}}"
             >
 
-            <button class="submit">Add Workout</button>
-
-        </form>
+            <button class="submit">Save Changes</button>
 
     </article>
+
+     </form>
+            <a href="/delete/{{ workout.id }}" role="button" onclick="return confirm('Are you sure you would like to delete the workout {{workout.name}}');">Delete Workout</a>
 
 {% endblock %}
 
@@ -66,8 +66,7 @@
     <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/history">History</a></li>
-                <li><a href="/new">New Workout</a></li>
+                <li><a href="/new">Back</a></li>
             </ul>
     </nav>
 {% endblock %}

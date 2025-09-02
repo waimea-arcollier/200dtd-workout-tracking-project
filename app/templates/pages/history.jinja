@@ -11,7 +11,10 @@
 
 {% block title %}
 
-    Flask Demo - About Flask and Jinja
+    <header id="info_header">
+            <h2>Hello</h2>
+            <h2>date</h2>
+    </header>
 
 {% endblock %}
 
@@ -48,3 +51,12 @@
 
 {% endblock %}
 
+{% block footer %}
+    <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/history">History</a></li>
+                <li><a href="/new">New Workout</a></li>
+            </ul>
+    </nav>
+{% endblock %}

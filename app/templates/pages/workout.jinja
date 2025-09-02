@@ -6,35 +6,46 @@
 
 {% extends 'pages/base.jinja' %}
 
+{%block title%}
 
-{% block title %}
+    <header id="info_header">
+            <h2>{{workout.name}}</h2>
+            <h2>date</h2>
+    </header>
 
-    Flask Demo - Single Thing
-
-{% endblock %}
-
+{%endblock%}
 
 {% block content %}
 
-    <h1>A Single Thing...</h1>
+    <h1>Instruction Video:</h1>
 
+    <article class="video">
 
-    <article>
+        <embed {{workout.video_link}}>
 
-        <header>
-            <h3>{{ thing.name }}</h3>
-        </header>
+    </article>
+    
+    <article class="notes">
+        <h1>Notes</h1>
+        {{workout.notes}}
 
-        <p>Price: <strong>${{ thing.price }}</strong></p>
+    </article>
 
-        <footer>
-            <a href="/delete/{{ thing.id }}" onclick="return confirm('Really delete?');">Delete</a>
-        </footer>
+    <article class="reps">
+
+        <h1>Current Reps Target:</h1>
+        <p class="num_box">{{workout.reps_target}}</p>
+        <a href="/edit/{{workout.id}}" role="button">Change Target</a>
 
     </article>
 
 
-    <a role="button" href="/things">Back to Thing List</a>
-
 {% endblock %}
 
+{% block footer %}
+    <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+    </nav>
+{% endblock %}

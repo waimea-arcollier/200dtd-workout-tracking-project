@@ -7,12 +7,14 @@
 
 from flask import Flask, render_template, request, flash, redirect
 import html
+from datetime import date
 
 from app.helpers.session import init_session
 from app.helpers.db      import connect_db
 from app.helpers.errors  import init_error, not_found_error
 from app.helpers.logging import init_logging
 from app.helpers.time    import init_datetime, utc_timestamp, utc_timestamp_now
+import urlparse
 
 
 # Create the app
@@ -42,17 +44,20 @@ def show_all_workouts():
             FROM workouts 
             LEFT JOIN sessions ON sessions.workout_id = workouts.id
             
-            WHERE sessions.date NOT current_date
-            
             ORDER BY name ASC
         
         """
         params = []
         result = client.execute(sql, params)
         workouts = result.rows
+        
+        today = date.today().isoformat()
+
+        
+        print(today)
 
         # And show them on the page
-        return render_template("pages/home.jinja", workouts=workouts)
+        return render_template("pages/home.jinja", workouts=workouts, today=today)
 
 
 #-----------------------------------------------------------
@@ -87,10 +92,28 @@ def show_all_things():
         return render_template("pages/new.jinja", workouts=workouts)
 
 
+@app.post("/workout/<int:id>")
+def record_workout_session(id):
+    with connect_db() as client:
+        # Read the reps from the workout table
+        sql = "SELECT reps_target FROM workouts WHERE id=?"
+        params = [id]
+        result = client.execute(sql, params)
+        reps = result.reps_target
+        
+        # Do an insert into the session table with the id and reps
+        sql = "INSERT INTO sessions (workout id, reps) VALUES (?, ?)"
+        params = [id,reps]
+        client.execute(sql, params)   
+        
+        return redirect("?")
+   
+
+
 #-----------------------------------------------------------
 # Individual Workout
 #-----------------------------------------------------------
-@app.get("/thing/<int:id>")
+@app.get("/workout/<int:id>")
 def show_one_thing(id):
     with connect_db() as client:
         # Get the thing details from the DB
@@ -107,46 +130,96 @@ def show_one_thing(id):
         else:
             # No, so show error
             return not_found_error()
+        
+#-----------------------------------------------------------
+# Edit workout info
+#-----------------------------------------------------------
+@app.get("/edit/<int:id>")
+def edit_info(id):
+    with connect_db() as client:
+        # Get the thing details from the DB
+        sql = "SELECT id, name, video_link, reps_target, notes FROM workouts WHERE id=?"
+        params = [id]
+        result = client.execute(sql, params)
 
+        # Did we get a result?
+        if result.rows:
+            # yes, so show it on the page
+            workout = result.rows[0]
+            return render_template("pages/edit.jinja", workout=workout)
+
+        else:
+            # No, so show error
+            return not_found_error()
 
 #-----------------------------------------------------------
-# Route for adding a thing, using data posted from a form
+# Route for adding a workout, using data posted from a form
 #-----------------------------------------------------------
 @app.post("/add")
-def add_a_thing():
+def add_a_workout():
     # Get the data from the form
     name  = request.form.get("name")
-    instruction_video = request.form.get("instruction_video")
+    vid_url = request.form.get("instruction_video")
     reps_target  = request.form.get("reps_target")
     notes  = request.form.get("notes")
 
     # Sanitize the text inputs
+    url_data = urlparse.urlparse(vid_url)
+    query = urlparse.parse_qs(url_data.query)
+    vid_url = query["v"][0] if vid_url else None
     name = html.escape(name)
-    notes = html.escape(notes)
+    notes = html.escape(notes) if notes else None
 
     with connect_db() as client:
         # Add the thing to the DB
         sql = "INSERT INTO workouts (name, video_link, reps_target, notes) VALUES (?, ?, ?, ?)"
-        params = [name, instruction_video, reps_target, notes]
+        params = [name, vid_url, reps_target, notes]
         client.execute(sql, params)
-
+        
         # Go back to the home page
         return redirect("/")
 
+#-----------------------------------------------------------
+# Route for editing a workout, using data posted from a form
+#-----------------------------------------------------------
+@app.post("/edit/<int:id>")
+def edit_info_post(id):
+    # Get the data from the form
+    vid_url = request.form.get("instruction_video")
+    reps_target  = request.form.get("reps_target")
+    notes  = request.form.get("notes")
+
+    # Sanitize the text inputs
+    url_data = urlparse.urlparse(vid_url)
+    query = urlparse.parse_qs(url_data.query)
+    vid_url = query["v"][0] if vid_url else None
+    notes = html.escape(notes) if notes else None
+
+    with connect_db() as client:
+        # Add the thing to the DB
+        sql ="""UPDATE workouts 
+                SET video_link = ?, reps_target = ?, notes = ?
+                WHERE id = ?
+             """
+        params = [vid_url, reps_target, notes, id]
+        client.execute(sql, params)
+        
+
+        # Go back to the home page
+        return redirect("/")
 
 #-----------------------------------------------------------
 # Route for deleting a thing, Id given in the route
 #-----------------------------------------------------------
 @app.get("/delete/<int:id>")
-def delete_a_thing(id):
+def delete_workout(id):
     with connect_db() as client:
         # Delete the thing from the DB
-        sql = "DELETE FROM things WHERE id=?"
+        sql = "DELETE FROM workouts WHERE id=?"
         params = [id]
         client.execute(sql, params)
 
         # Go back to the home page
-        flash("Thing deleted", "success")
-        return redirect("/things")
+        return redirect("/")
 
 
