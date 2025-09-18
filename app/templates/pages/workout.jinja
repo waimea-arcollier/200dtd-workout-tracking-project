@@ -19,12 +19,18 @@
 
     <h1>Instruction Video:</h1>
 
-    <article class="video">
+    {%if workout.video_id%}
 
-        <embed {{workout.video_link}}>
+        <article class="video">
 
-    </article>
-    
+            <iframe style="width: 100%; aspect-ratio: 16/9;"  src="https://www.youtube.com/embed/{{workout.video_id}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+        </article>
+        {%else%}
+        <article class="no_video">
+        <p>No video :c</p>
+        </article>
+    {%endif%}
     <article class="notes">
         <h1>Notes</h1>
         {{workout.notes}}
@@ -38,6 +44,7 @@
         <a href="/edit/{{workout.id}}" role="button">Change Target</a>
 
     </article>
+
 
 
 {% endblock %}

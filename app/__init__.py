@@ -14,7 +14,7 @@ from app.helpers.db      import connect_db
 from app.helpers.errors  import init_error, not_found_error
 from app.helpers.logging import init_logging
 from app.helpers.time    import init_datetime, utc_timestamp, utc_timestamp_now
-import urlparse
+from urllib.parse        import urlparse, parse_qs
 
 
 # Create the app
@@ -117,7 +117,7 @@ def record_workout_session(id):
 def show_one_thing(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, video_link, reps_target, notes FROM workouts WHERE id=?"
+        sql = "SELECT id, name, video_id, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
 
@@ -138,7 +138,7 @@ def show_one_thing(id):
 def edit_info(id):
     with connect_db() as client:
         # Get the thing details from the DB
-        sql = "SELECT id, name, video_link, reps_target, notes FROM workouts WHERE id=?"
+        sql = "SELECT id, name, video_id, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
 
@@ -159,21 +159,23 @@ def edit_info(id):
 def add_a_workout():
     # Get the data from the form
     name  = request.form.get("name")
-    vid_url = request.form.get("instruction_video")
+    yt_vid_link = request.form.get("instruction_video")
     reps_target  = request.form.get("reps_target")
     notes  = request.form.get("notes")
 
-    # Sanitize the text inputs
-    url_data = urlparse.urlparse(vid_url)
-    query = urlparse.parse_qs(url_data.query)
-    vid_url = query["v"][0] if vid_url else None
+    #video id
+    parsed_url = urlparse(yt_vid_link)
+    query_string = parsed_url.query
+    query_parameters = parse_qs(query_string)
+    #sanitize
+    yt_vid_id = query_parameters["v"][0] if query_parameters["v"] else None
     name = html.escape(name)
     notes = html.escape(notes) if notes else None
 
     with connect_db() as client:
         # Add the thing to the DB
-        sql = "INSERT INTO workouts (name, video_link, reps_target, notes) VALUES (?, ?, ?, ?)"
-        params = [name, vid_url, reps_target, notes]
+        sql = "INSERT INTO workouts (name, video_id, reps_target, notes) VALUES (?, ?, ?, ?)"
+        params = [name, yt_vid_id, reps_target, notes]
         client.execute(sql, params)
         
         # Go back to the home page
@@ -185,28 +187,35 @@ def add_a_workout():
 @app.post("/edit/<int:id>")
 def edit_info_post(id):
     # Get the data from the form
-    vid_url = request.form.get("instruction_video")
+    yt_vid_link = request.form.get("video_link")
     reps_target  = request.form.get("reps_target")
     notes  = request.form.get("notes")
 
-    # Sanitize the text inputs
-    url_data = urlparse.urlparse(vid_url)
-    query = urlparse.parse_qs(url_data.query)
-    vid_url = query["v"][0] if vid_url else None
+    # Gte the YT video ID from the URL
+    parsed_url = urlparse(yt_vid_link)
+    query_string = parsed_url.query
+    query_parameters = parse_qs(query_string)
+    
+    if hasattr(query_parameters, "v"):
+        if query_parameters["v"]:
+            yt_vid_id = query_parameters["v"][0] 
+        else: yt_vid_id = None
+
+    # Sanitize the other text inputs
     notes = html.escape(notes) if notes else None
 
     with connect_db() as client:
         # Add the thing to the DB
         sql ="""UPDATE workouts 
-                SET video_link = ?, reps_target = ?, notes = ?
+                SET video_id = ?, reps_target = ?, notes = ?
                 WHERE id = ?
              """
-        params = [vid_url, reps_target, notes, id]
+        params = [yt_vid_id, reps_target, notes, id]
         client.execute(sql, params)
         
 
         # Go back to the home page
-        return redirect("/")
+        return redirect("/new")
 
 #-----------------------------------------------------------
 # Route for deleting a thing, Id given in the route

@@ -35,7 +35,10 @@
             <input
                 type="text"
                 name="video_link"
-                value="{{workout.video_link}}"
+                {%if workout.video_id%}
+                value="https://www.youtube.com/watch?v={{workout.video_id}}"
+                {%endif%}
+                placeholder="https://...."
             >
 
             <h5>Reps Goal</h5>
@@ -50,7 +53,10 @@
             <input
                 type="text"
                 name="notes"
-                value="{{workout.notes}}"
+                {%if workout.notes%}
+                    value="{{workout.notes}}"
+                {%endif%}
+                placeholder="Notes"
             >
 
             <button class="submit">Save Changes</button>
