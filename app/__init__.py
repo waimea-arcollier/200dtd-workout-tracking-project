@@ -195,11 +195,9 @@ def edit_info_post(id):
     parsed_url = urlparse(yt_vid_link)
     query_string = parsed_url.query
     query_parameters = parse_qs(query_string)
-    
-    if hasattr(query_parameters, "v"):
-        if query_parameters["v"]:
-            yt_vid_id = query_parameters["v"][0] 
-        else: yt_vid_id = None
+
+    yt_vid_id = query_parameters["v"]
+
 
     # Sanitize the other text inputs
     notes = html.escape(notes) if notes else None
@@ -215,7 +213,7 @@ def edit_info_post(id):
         
 
         # Go back to the home page
-        return redirect("/new")
+        return redirect(f"/workout/{id}")
 
 #-----------------------------------------------------------
 # Route for deleting a thing, Id given in the route
