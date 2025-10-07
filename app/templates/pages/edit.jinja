@@ -64,7 +64,7 @@
     </article>
 
      </form>
-            <a href="/delete/{{ workout.id }}" role="button" onclick="return confirm('Are you sure you would like to delete the workout {{workout.name}}');">Delete Workout</a>
+            <a href="/delete/{{ workout.id }}" role="button" onclick="return confirm('Are you sure you would like to delete the workout {{workout.name}}?');">Delete Workout</a>
 
 {% endblock %}
 
@@ -72,7 +72,7 @@
     <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/new">Back</a></li>
+                <li><a href="/workout/{{workout.id}}">Back</a></li>
             </ul>
     </nav>
 {% endblock %}

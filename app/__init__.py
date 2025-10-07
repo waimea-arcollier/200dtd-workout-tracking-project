@@ -38,11 +38,8 @@ def show_all_workouts():
             SELECT 
                 workouts.id, 
                 workouts.name, 
-                workouts.reps_target,
-                sessions.date
-                
+                workouts.reps_target   
             FROM workouts 
-            LEFT JOIN sessions ON sessions.workout_id = workouts.id
             
             ORDER BY name ASC
         
@@ -51,29 +48,10 @@ def show_all_workouts():
         result = client.execute(sql, params)
         workouts = result.rows
         
-        today = date.today().isoformat()
-
+        today = date.today().isoweekday()
         
-        print(today)
-
         # And show them on the page
         return render_template("pages/home.jinja", workouts=workouts, today=today)
-
-
-#-----------------------------------------------------------
-# About page route
-#-----------------------------------------------------------
-@app.get("/history/")
-def about():
-    with connect_db() as client:
-        # Get all the things from the DB
-        sql = "SELECT id, name FROM workouts "
-        params = []
-        result = client.execute(sql, params)
-        workouts = result.rows
-
-        # And show them on the page
-        return render_template("pages/history.jinja", workouts=workouts)
 
 
 #-----------------------------------------------------------
@@ -82,7 +60,7 @@ def about():
 @app.get("/new/")
 def show_all_things():
     with connect_db() as client:
-        # Get all the things from the DB
+        # Get data from the DB
         sql = "SELECT id, name FROM workouts "
         params = []
         result = client.execute(sql, params)
@@ -99,14 +77,14 @@ def record_workout_session(id):
         sql = "SELECT reps_target FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
-        reps = result.reps_target
-        
+        reps = result.rows[0][0]
+
         # Do an insert into the session table with the id and reps
-        sql = "INSERT INTO sessions (workout id, reps) VALUES (?, ?)"
-        params = [id,reps]
+        sql = "INSERT INTO sessions (workout_id, reps) VALUES (?, ?)"
+        params = [id, reps]
         client.execute(sql, params)   
         
-        return redirect("?")
+        return redirect("/")
    
 
 
@@ -116,7 +94,7 @@ def record_workout_session(id):
 @app.get("/workout/<int:id>")
 def show_one_thing(id):
     with connect_db() as client:
-        # Get the thing details from the DB
+        # Get the workout details from the DB
         sql = "SELECT id, name, video_id, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
@@ -137,7 +115,7 @@ def show_one_thing(id):
 @app.get("/edit/<int:id>")
 def edit_info(id):
     with connect_db() as client:
-        # Get the thing details from the DB
+        # Get the workout details from the DB
         sql = "SELECT id, name, video_id, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
@@ -159,16 +137,21 @@ def edit_info(id):
 def add_a_workout():
     # Get the data from the form
     name  = request.form.get("name")
-    yt_vid_link = request.form.get("instruction_video")
+    yt_vid_link = request.form.get("video_link")
     reps_target  = request.form.get("reps_target")
     notes  = request.form.get("notes")
 
-    #video id
+    # Get the YT video ID from the URL
     parsed_url = urlparse(yt_vid_link)
     query_string = parsed_url.query
     query_parameters = parse_qs(query_string)
-    #sanitize
-    yt_vid_id = query_parameters["v"][0] if query_parameters["v"] else None
+
+    if 'v' in query_parameters:
+        yt_vid_id = query_parameters["v"][0]
+    else:
+        yt_vid_id = None
+    
+    #sanitise
     name = html.escape(name)
     notes = html.escape(notes) if notes else None
 
@@ -196,8 +179,11 @@ def edit_info_post(id):
     query_string = parsed_url.query
     query_parameters = parse_qs(query_string)
 
-    yt_vid_id = query_parameters["v"]
-
+    if 'v' in query_parameters:
+        yt_vid_id = query_parameters["v"][0]
+    else:
+        yt_vid_id = None
+        
 
     # Sanitize the other text inputs
     notes = html.escape(notes) if notes else None

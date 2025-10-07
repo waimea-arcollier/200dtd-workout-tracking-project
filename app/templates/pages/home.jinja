@@ -20,8 +20,11 @@
 
 {% block content %}
 
-
-    <h2>Workouts completed:</h2>
+    {%if today in (2,4,6,7)%}
+    <h2>No workouts today! Enjoy your rest!</h2>
+    {%else%}
+    <h2>Workouts Completed:</h2>
+    {%endif%}
 
     <article id="workout_table">
         <table>
@@ -54,9 +57,12 @@
                             <input 
                                 name="done" 
                                 type="checkbox" 
-                                {{ 'checked' if workout.date == today }}
                                 onchange="this.form.submit()"
+                                {%if today in (2,4,6,7)%}
+                                disabled
+                                {%endif%}
                             >
+                            
                         </form>
                     </td>
                 </tr>
@@ -72,7 +78,6 @@
     <nav>
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="/history">History</a></li>
                 <li><a href="/new">New Workout</a></li>
             </ul>
     </nav>
