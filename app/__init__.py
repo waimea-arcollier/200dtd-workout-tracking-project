@@ -33,25 +33,28 @@ init_datetime(app)  # Handle UTC dates in timestamps
 @app.get("/")
 def show_all_workouts():
     with connect_db() as client:
+        today_str = date.today().strftime("%Y-%m-%d")
+
         # Get all the things from the DB
         sql = """
             SELECT 
-                workouts.id, 
-                workouts.name, 
-                workouts.reps_target   
-            FROM workouts 
-            
+                id, 
+                name, 
+                reps_target,   
+                (SELECT COUNT(*) FROM sessions WHERE workout_id = workouts.id AND date = ?) AS done,
+                (SELECT COUNT(*) FROM sessions WHERE date = ?) AS total_completed
+            FROM workouts
+             
             ORDER BY name ASC
         
         """
-        params = []
+        params = [today_str, today_str]
         result = client.execute(sql, params)
         workouts = result.rows
-        
-        today = date.today().isoweekday()
-        
+        day_of_week = date.today().isoweekday()
+
         # And show them on the page
-        return render_template("pages/home.jinja", workouts=workouts, today=today)
+        return render_template("pages/home.jinja", workouts=workouts, day_of_week=day_of_week)
 
 
 #-----------------------------------------------------------
@@ -78,10 +81,11 @@ def record_workout_session(id):
         params = [id]
         result = client.execute(sql, params)
         reps = result.rows[0][0]
+        date_str = date.today().strftime("%Y-%m-%d")
 
         # Do an insert into the session table with the id and reps
-        sql = "INSERT INTO sessions (workout_id, reps) VALUES (?, ?)"
-        params = [id, reps]
+        sql = "INSERT INTO sessions (workout_id, reps, date) VALUES (?, ?, ?)"
+        params = [id, reps, date_str]
         client.execute(sql, params)   
         
         return redirect("/")

@@ -23,7 +23,7 @@
     {%if today in (2,4,6,7)%}
     <h2>No workouts today! Enjoy your rest!</h2>
     {%else%}
-    <h2>Workouts Completed:</h2>
+    <h2>Workouts Completed: {{ workouts[0].total_completed }}</h2>
     {%endif%}
 
     <article id="workout_table">
@@ -58,8 +58,11 @@
                                 name="done" 
                                 type="checkbox" 
                                 onchange="this.form.submit()"
-                                {%if today in (2,4,6,7)%}
-                                disabled
+                                {%if workout.done > 0 %}
+                                    checked disabled
+                                {%endif%}
+                                {%if day_of_week in (2,4,6,7)%}
+                                    disabled
                                 {%endif%}
                             >
                             
