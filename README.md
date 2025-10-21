@@ -21,6 +21,7 @@ This website allows the user to update, log, and track workouts.
 ## Project Links
 
 - [GitHub repo for the project](https://github.com/waimea-arcollier/200dtd-workout-tracking-project)
+- [Project documentation]((https://waimea-arcollier.github.io/200dtd-workout-tracking-project/))
 - [Live web app](https://...)
 
 
