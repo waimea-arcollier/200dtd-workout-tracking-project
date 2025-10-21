@@ -1,6 +1,6 @@
-# PROJECT NAME HERE
+# Workout Tracker
 
-by YOUR NAME HERE
+by Amber Collier
 
 
 ---
@@ -20,7 +20,7 @@ This website allows the user to update, log, and track workouts.
 
 ## Project Links
 
-- [GitHub repo for the project](https://...)
+- [GitHub repo for the project](https://github.com/waimea-arcollier/200dtd-workout-tracking-project)
 - [Live web app](https://...)
 
 
