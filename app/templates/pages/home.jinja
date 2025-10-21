@@ -11,8 +11,8 @@
 {% block title %}
 
     <header id="info_header">
-            <h2>Hello</h2>
-            <h2>date</h2>
+            <h2>Welcome! </h2>
+            <h2>{{today_date}}</h2>
     </header>
 
 {% endblock %}
@@ -59,7 +59,7 @@
                                 type="checkbox" 
                                 onchange="this.form.submit()"
                                 {%if workout.done > 0 %}
-                                    checked disabled
+                                   checked disabled
                                 {%endif%}
                                 {%if day_of_week in (2,4,6,7)%}
                                     disabled

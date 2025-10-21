@@ -10,7 +10,7 @@
 
     <header id="info_header">
             <h2>{{workout.name}}</h2>
-            <h2>date</h2>
+            <h2>{{today_date}}</h2>
     </header>
 
 {%endblock%}
@@ -43,6 +43,32 @@
         <p class="num_box">{{workout.reps_target}}</p>
         <a href="/edit/{{workout.id}}" role="button">Change Target</a>
 
+    </article>
+
+    <article class="history">
+
+        <h1>Workout History</h1>
+
+         <table class="history-table">
+            <tr>
+                <th>Date</th>
+                <th>Reps</th>
+            </tr>
+            {% for workout_session in sessions %}
+
+                <tr class="date">
+                    
+                    <td class="date-name">
+                    {{ workout_session.date | nicedate }}
+                    </td>
+                    
+                    <td class="date-reps">
+                        {{ workout_session.reps }}
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </table>
     </article>
 
 

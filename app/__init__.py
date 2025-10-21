@@ -7,13 +7,13 @@
 
 from flask import Flask, render_template, request, flash, redirect
 import html
-from datetime import date
+from datetime import date, timedelta
 
 from app.helpers.session import init_session
 from app.helpers.db      import connect_db
 from app.helpers.errors  import init_error, not_found_error
 from app.helpers.logging import init_logging
-from app.helpers.time    import init_datetime, utc_timestamp, utc_timestamp_now
+from app.helpers.dates   import init_datetime, utc_datetime_str, utc_date_str, utc_time_str
 from urllib.parse        import urlparse, parse_qs
 
 
@@ -52,9 +52,10 @@ def show_all_workouts():
         result = client.execute(sql, params)
         workouts = result.rows
         day_of_week = date.today().isoweekday()
+        today_date = date.today().strftime("%d-%m")
 
         # And show them on the page
-        return render_template("pages/home.jinja", workouts=workouts, day_of_week=day_of_week)
+        return render_template("pages/home.jinja", workouts=workouts, day_of_week=day_of_week, today_date=today_date)
 
 
 #-----------------------------------------------------------
@@ -68,9 +69,10 @@ def show_all_things():
         params = []
         result = client.execute(sql, params)
         workouts = result.rows
+        today_date = date.today().strftime("%d-%m")
 
         # And show them on the page
-        return render_template("pages/new.jinja", workouts=workouts)
+        return render_template("pages/new.jinja", workouts=workouts, today_date=today_date)
 
 
 @app.post("/workout/<int:id>")
@@ -102,12 +104,24 @@ def show_one_thing(id):
         sql = "SELECT id, name, video_id, reps_target, notes FROM workouts WHERE id=?"
         params = [id]
         result = client.execute(sql, params)
-
+        
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
             workout = result.rows[0]
-            return render_template("pages/workout.jinja", workout=workout)
+
+            today_str = date.today().strftime("%Y-%m-%d")
+            today_date = date.today().strftime("%d-%m")
+            four_weeks_ago = date.today() - timedelta(days=(-7*4))  # Four weeks ago
+            past_str = four_weeks_ago.strftime("%Y-%m-%d")
+            
+            # Get the workout details from the DB
+            sql = "SELECT date, reps FROM sessions WHERE workout_id=? ORDER BY date DESC"
+            params = [id]
+            result = client.execute(sql, params)
+            sessions = result.rows
+
+            return render_template("pages/workout.jinja", workout=workout, sessions=sessions, today_date=today_date)
 
         else:
             # No, so show error
@@ -124,11 +138,13 @@ def edit_info(id):
         params = [id]
         result = client.execute(sql, params)
 
+
         # Did we get a result?
         if result.rows:
             # yes, so show it on the page
             workout = result.rows[0]
-            return render_template("pages/edit.jinja", workout=workout)
+            today_date = date.today().strftime("%d-%m")
+            return render_template("pages/edit.jinja", workout=workout, today_date=today_date)
 
         else:
             # No, so show error
