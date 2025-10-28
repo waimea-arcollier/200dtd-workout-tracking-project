@@ -20,8 +20,8 @@
 
 {% block content %}
 
-    {%if today in (2,4,6,7)%}
-    <h2>No workouts today! Enjoy your rest!</h2>
+    {%if day_of_week in (4,6,7)%}
+    <h2>No workouts today!</h2>
     {%else%}
     <h2>Workouts Completed: {{ workouts[0].total_completed }}</h2>
     {%endif%}
@@ -61,7 +61,7 @@
                                 {%if workout.done > 0 %}
                                    checked disabled
                                 {%endif%}
-                                {%if day_of_week in (2,4,6,7)%}
+                                {%if day_of_week in (4,6,7)%}
                                     disabled
                                 {%endif%}
                             >
@@ -72,8 +72,6 @@
             {% endfor %}
         </table>
     </article>
-
-    <p role="button">Help</p>
 
 {% endblock %}
 

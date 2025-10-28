@@ -31,23 +31,25 @@
         <p>No video :c</p>
         </article>
     {%endif%}
+
+    <h1>Notes</h1>
     <article class="notes">
-        <h1>Notes</h1>
         {{workout.notes}}
 
     </article>
 
+    <h1>Current Reps Target:</h1>
     <article class="reps">
 
-        <h1>Current Reps Target:</h1>
         <p class="num_box">{{workout.reps_target}}</p>
-        <a href="/edit/{{workout.id}}" role="button">Change Target</a>
 
     </article>
 
-    <article class="history">
+    <section>
+    <a href="/edit/{{workout.id}}" role="button">Edit Workout Info</a>
+    </section>
 
-        <h1>Workout History</h1>
+    <h1>Workout History</h1>
 
          <table class="history-table">
             <tr>
@@ -69,7 +71,13 @@
                 </tr>
             {% endfor %}
         </table>
-    </article>
+
+
+    <section class="gap">
+    <p class="spacers">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p> 
+    </section>
 
 
 

@@ -28,6 +28,7 @@
             <input
                 type="text"
                 name="name"
+                maxlength="16"
                 placeholder="Name"
                 required
             >
@@ -41,10 +42,12 @@
 
             <h5>Reps Goal</h5>
             <input
-                type="int"
+                type="number"
                 name="reps_target"
                 min="0"
+                max="999"
                 placeholder="0"
+                required
             >
             
             <h5>Notes</h5>

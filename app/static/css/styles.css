@@ -9,6 +9,17 @@
     --accent: #27967F;
     --primary: #80CCCC;
 }
+/* EVERYTHING -------------------------------------------- */
+html {
+    background-color: var(--background) !important;
+}
+article {
+    background-color: var(--header);
+    border-color: var(--primary);
+}
+text {
+    color: var(--text);
+}
 
 /* BODY -------------------------------------------- */
 header#info_header {
@@ -96,7 +107,9 @@ main{
 /* NEW WORKOUT FORM -------------------------------------------- */
 
 /* INDIVIDUAL WORKOUT -------------------------------------------- */
-
+section.gap p.spacers {
+    color: var(--background);
+}
 
 /* FOOTER -------------------------------------------- */
 
