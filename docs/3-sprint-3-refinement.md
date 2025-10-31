@@ -12,7 +12,7 @@ Develop the system until it is fully featured, with a refined UI and it satisfie
 
 The web app is fully implemented with a refined UI:
 
-![gif of test](screenshots/colour-test.gif)
+![gif of it](screenshots/done.gif)
 
 
 ---
