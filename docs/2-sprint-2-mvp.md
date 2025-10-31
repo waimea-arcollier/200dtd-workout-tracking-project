@@ -10,9 +10,12 @@ Develop a bare-bones, working web application that provides the key functionalit
 
 ## Implemented Database Schema
 
-Replace this text with notes regarding the DB schema.
+The sessions database stores the workout history of the user and allows us to see whether the workouts have been completed today. This uses the date stored in the date column. The reps is saved to show progress as the user may increase their reps as they continue working out weekly. 
+
+The workouts database stores the information for
 
 ![SCREENSHOT OF DB SCHEMA](screenshots/db_sessions.png)
+![SCREENSHOT OF DB SCHEMA](screenshots/db_workouts.png)
 
 
 ---
@@ -22,7 +25,7 @@ Replace this text with notes regarding the DB schema.
 The key functionality of the web app was implemented:
 
 ![gif of adding, editing, and removing items from the workouts database](screenshots/add-and-edit.gif)
-![gif of adding items to the sessions database(being unable to remove data is intentional)](screenshots/add-and-edit.gif)
+
 
 ---
 
@@ -46,66 +49,30 @@ Added constraints to reps input and name input
 
 ## Testing editing and deleting workouts
 
-Testing changing the workouts info, adding info, removing, unexpected values, etc. Info can be changed and removed easily, invalid links are discarded and shown as no video being added. Found similar problems to adding workouts with the reps allowed to be blank and non-integers.
+Testing changing the workouts info, adding info, removing, unexpected values, etc. Info can be changed and removed easily, invalid links are discarded and shown as no video being added. Found similar problems to adding workouts with the reps allowed to be blank and non-integers. Deleting works as expected.
 
-![gif of adding a workout](screenshots/edit-test-1.gif)
+![gif of editing a workout](screenshots/edit-test-1.gif)
 
 ### Changes / Improvements
 
 Required the reps field to be filled and to be an integer
 Added constraints to reps input 
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+![gif of editing a workout](screenshots/edit-test-2.gif)
 
 
 ---
 
-## Testing FEATURE NAME HERE
+## Testing History of workout storage
 
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
+Tested that a workout could be marked completed by checking the box. When it is checked the count of completed workouts goes up and the box is disabled. Going into the history section of a workout, previous history is displayed and when the workout is checked as completed for the day the new date gets added to the history. Everything works as intended.
 
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
-
-
----
-
-## Testing FEATURE NAME HERE
-
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
-
-
----
-
-## Testing FEATURE NAME HERE
-
-Replace this text with notes about what you are testing, how you tested it, and the outcome of the testing
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE TESTING HERE**
-
-### Changes / Improvements
-
-Replace this text with notes any improvements you made as a result of the testing.
-
-**PLACE SCREENSHOTS AND/OR ANIMATED GIFS OF THE IMPROVED SYSTEM HERE**
+![gif of testing history](completing-and-history.gif)
 
 
 ---
 
 ## Sprint Review
 
-Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
+This sprint has made the site fully functional, and it can now perform it's key functions well and efficiently. The end-user is happy with the functionality of the site and can use it easily without errors.
 

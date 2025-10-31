@@ -21,33 +21,64 @@ text {
     color: var(--text);
 }
 
+a[role="button"] {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    border-radius: 15px !important;
+    color: #ffff;
+}
+
+hr{
+    margin-left: -16px;
+    margin-right: -16px;
+    background-color: var(--primary);
+    height: 2px;
+}
+
 /* BODY -------------------------------------------- */
-header#info_header {
+header#info_header, header#workout_header {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap!important;
     background-color: #082022;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 4rem;
+    height: 5rem;
     border-bottom: 2px solid var(--primary);
+    align-items: center;
 }
 
-header#info_header h2{
+header#workout_header h2 {
+    padding-top: 1rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1.8rem;
+}
+
+header#info_header h2 {
     padding-top: 1rem;
     padding-left: 20px;
     padding-right: 20px;
     font-size: 2rem;
 }
 
+div#date h2 {
+    white-space: nowrap;
+}
+
 main{
     margin-top: 4rem;
 }
 
+
 /* WORKOUTS -------------------------------------------- */
+section.page-title{
+    margin-top: 2rem;
+}
+
 #workout_table{
     margin: 5px;
     background-color: var(--background);
@@ -104,12 +135,94 @@ main{
     color: var(--text);
     background: var(--secondary);
 }
-/* NEW WORKOUT FORM -------------------------------------------- */
+/* FORMS-------------------------------------------- */
+article.form{
+    background-color: var(--secondary);
+    border-color: var(--primary) !important;
+    border: solid 2px;
+    border-radius: 1.5rem;
+}
+
+article.form h5{
+    color: var(--text);
+}
+
+article.form input{
+    background-color: var(--secondary);
+    border-color: var(--primary);
+}
+
+button.submit{
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--background);
+    justify-self: center !important;
+    width: 85%;
+    text-align: center;
+    margin-inline: auto;
+    display: block;
+}
 
 /* INDIVIDUAL WORKOUT -------------------------------------------- */
+section.workout-section{
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+section.workout-section h1.reps-title{
+    text-align: center;
+    text-decoration: underline;
+}
+
+article.reps{
+    background-color: var(--secondary);
+    border: solid;
+    border-color: var(--accent);
+    width: 20%;
+    display: flex;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+article.reps p{
+    margin: 0;
+}
+
+section.video-section{
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+section.history-section{
+    padding-top: 0.75rem;
+    padding-bottom: 7rem;
+}
+
 section.gap p.spacers {
     color: var(--background);
 }
+
+a.edit-button{
+    width: 85%;
+    margin-inline: auto;
+    display: block;
+    background-color: var(--accent);
+    font-weight: bold;
+}
+
+table.history-table{
+    background-color: var(--background);
+}
+tr.date, tr.dates-titles, td.date-name, td.date-reps{
+    background-color: var(--secondary);
+}
+
+table.history-table th{
+    background-color: var(--secondary); 
+}
+
 
 /* FOOTER -------------------------------------------- */
 
@@ -120,12 +233,15 @@ body > footer {
     right: 0;
     max-width: unset;
     background-color: #082022;
+    border-top: 2px solid var(--primary);
+    height: 5rem;
+    align-items: center;
 }
 
 
 body > footer nav ul {
     width: 100%;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin: 0 !important;
 }
 

@@ -2,38 +2,37 @@
 
 ## Addressing Relevant Implications
 
-### NAME OF IMPLICATION 1
+### Functionality
 
-Replace this text with notes about what you did during the project to address the implication - design features, etc.
-
-
-### NAME OF IMPLICATION 2
-
-Replace this text with notes about what you did during the project to address the implication - design features, etc.
+I have thoroughly tested the functions of my web app and the code functions as intended.Unexpected inputs have been handled and there are no bugs in the code.
 
 
-### NAME OF IMPLICATION 3
+### Useability
 
-Replace this text with notes about what you did during the project to address the implication - design features, etc.
-
-
-### NAME OF IMPLICATION 4
-
-Replace this text with notes about what you did during the project to address the implication - design features, etc.
+I have clearly labeled buttons and titles throughout the web app. Every menu is less that two click away from the home page and there are back and home buttons on screen at all times.
 
 
-### NAME OF IMPLICATION 5
+### Aesthetics
 
-Replace this text with notes about what you did during the project to address the implication - design features, etc.
+I aligned my design as closely as I could with my figma prototype, which my end user approved the design of. I used the same colour scheme and kept the same button types as my prototype.
+
+
+### End-User
+
+I asked my end user for feedback on the design choices, layout, and functionality multiple times throughout the process and the user is happy with the final result.
+
+
+### Accessibility
+
+My buttons and text are all well sized, and my end-user agrees that it is catered to their accessibility needs. Most text is high contrast, although some could be higher, my end-user says that it is still readable.
 
 
 ---
 
 ## Overall Review
 
-Replace these words with a brief review of how the project went in terms of:
-- What went well?
-- What didn't go so well?
-- How did the testing/trialling impact the final system?
-- What would you do differently if you could?
+- The functionality of the app is complete, works well, and flows smoothly. The general colour scheme is implemented and has been used well. 
+- The url input will only work with web urls, not the shared link from a youtube video. With more time, I could have found a way to work around this with more complicated code and allowed many types of links but I could not. The design is nice, but still doesn't fully match what was planned.
+- Testing and trialing helped me find problems that I would not have found otherwise, and helped the general function of the app work in every use case.
+- If given more time and greater resources, I would have matched the font of the original prototype, found a nicer way to display the workout history and added fixed some spacing issues that arose from trying to override pico css.
 

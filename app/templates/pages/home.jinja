@@ -9,6 +9,7 @@
 
 
 {% block title %}
+    <title>Workout App - Home </title>
 
     <header id="info_header">
             <h2>Welcome! </h2>
@@ -19,12 +20,13 @@
 
 
 {% block content %}
-
+<section class="page-title">
     {%if day_of_week in (4,6,7)%}
     <h2>No workouts today!</h2>
     {%else%}
     <h2>Workouts Completed: {{ workouts[0].total_completed }}</h2>
     {%endif%}
+</section>
 
     <article id="workout_table">
         <table>
@@ -72,14 +74,20 @@
             {% endfor %}
         </table>
     </article>
+    
+    <section class="gap">
+    <p class="spacers">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p> 
+    </section>
 
 {% endblock %}
 
 {% block footer %}
     <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/new">New Workout</a></li>
+                <li><a href="/"><img src="/static/images/home.svg" alt="Home"></a></li>
+                <li><a href="/new"><img src="/static/images/new.svg" alt="New Workout"></a></li>
             </ul>
     </nav>
 {% endblock %}

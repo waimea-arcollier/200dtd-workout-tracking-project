@@ -8,8 +8,9 @@
 
 
 {% block title %}
+    <title>Workout App - Edit   {{workout.name}} </title>
 
-    <header id="info_header">
+    <header id="workout_header">
             <h2>{{workout.name}}</h2>
             <h2>{{today_date}}</h2>
     </header>
@@ -20,7 +21,7 @@
 {% block content %}
     <h3>Edit Workout</h3>
 
-    <article>
+    <article class="form">
 
         <form action="/edit/{{workout.id}}" method="POST" class="edit_workout">
 
@@ -43,7 +44,7 @@
 
             <h5>Reps Goal</h5>
             <input
-                type="int"
+                type="number"
                 name="reps_target"
                 min="0"
                 max="999"
@@ -68,13 +69,19 @@
      </form>
             <a href="/delete/{{ workout.id }}" role="button" onclick="return confirm('Are you sure you would like to delete the workout {{workout.name}}?');">Delete Workout</a>
 
+    <section class="gap">
+    <p class="spacers">
+    Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p> 
+    </section>
+
 {% endblock %}
 
 {% block footer %}
     <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/workout/{{workout.id}}">Back</a></li>
+                <li><a href="/"><img src="/static/images/home.svg" alt="Home"></a></li>
+                <li><a href="/workout/{{workout.id}}"><img src="/static/images/back.svg" alt="Back"></a></li>
             </ul>
     </nav>
 {% endblock %}

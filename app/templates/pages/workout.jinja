@@ -7,15 +7,20 @@
 {% extends 'pages/base.jinja' %}
 
 {%block title%}
+    <title>Workout App - {{workout.name}} </title>
 
-    <header id="info_header">
+    <header id="workout_header">
             <h2>{{workout.name}}</h2>
-            <h2>{{today_date}}</h2>
+            <div id="date">
+                <h2>{{today_date}}</h2>
+            </div>
     </header>
 
 {%endblock%}
 
 {% block content %}
+
+<section class="video-section">
 
     <h1>Instruction Video:</h1>
 
@@ -32,29 +37,42 @@
         </article>
     {%endif%}
 
+</section>
+
+    <hr>
+
+    <section class="workout-section">
+
     <h1>Notes</h1>
     <article class="notes">
         {{workout.notes}}
-
     </article>
-
-    <h1>Current Reps Target:</h1>
-    <article class="reps">
-
-        <p class="num_box">{{workout.reps_target}}</p>
-
-    </article>
-
-    <section>
-    <a href="/edit/{{workout.id}}" role="button">Edit Workout Info</a>
     </section>
 
+    <hr>
+
+    <section class="workout-section">
+    <h1 class="reps-title">Current Reps Target:</h1>
+    <article class="reps">
+
+        <p>{{workout.reps_target}}</p>
+
+    </article>
+    </section>
+
+    <section class="workout-section">
+    <a href="/edit/{{workout.id}}" role="button" class="edit-button">Edit Workout Info</a>
+    </section>
+
+    <hr>
+
+<section class="history-section">
     <h1>Workout History</h1>
 
          <table class="history-table">
             <tr>
-                <th>Date</th>
-                <th>Reps</th>
+                <th class="dates-titles">Date</th>
+                <th class="dates-titles">Reps</th>
             </tr>
             {% for workout_session in sessions %}
 
@@ -71,14 +89,7 @@
                 </tr>
             {% endfor %}
         </table>
-
-
-    <section class="gap">
-    <p class="spacers">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    </p> 
-    </section>
-
+</section>
 
 
 {% endblock %}
@@ -86,7 +97,7 @@
 {% block footer %}
     <nav>
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><a href="/"><img src="/static/images/home.svg" alt="Home"></a></li>
             </ul>
     </nav>
 {% endblock %}

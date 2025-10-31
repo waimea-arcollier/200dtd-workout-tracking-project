@@ -9,6 +9,8 @@
 
 {% block title %}
 
+    <title>Workout App - New Workout </title>
+
     <header id="info_header">
             <h2>Add Workout</h2>
             <h2>{{today_date}}</h2>
@@ -18,9 +20,10 @@
 
 
 {% block content %}
+<section class="page-title">
     <h3>New Workout</h3>
-
-    <article>
+</section>
+    <article class="form">
 
         <form action="/add" method="POST" class="new_workout">
 
@@ -63,13 +66,19 @@
 
     </article>
 
+    <section class="gap">
+    <p class="spacers">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </p> 
+    </section>
+
 {% endblock %}
 
 {% block footer %}
     <nav>
             <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/new">New Workout</a></li>
+                <li><a href="/"><img src="/static/images/home.svg" alt="Home"></a></li>
+                <li><a href="/new"><img src="/static/images/new.svg" alt="New Workout"></a></li>      
             </ul>
     </nav>
 {% endblock %}

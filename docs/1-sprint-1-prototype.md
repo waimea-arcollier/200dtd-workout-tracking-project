@@ -67,18 +67,18 @@ This Figma demo shows the UI with refinements applied:
 
 ### Testing
 
-Replace this text with notes about what you did to test the UI flow and the outcome of the testing.
+The ui flow was easy to use and intuitive, and the user liked it. They approved of the colours and the general design, but found the history page and the help button to not be useful as they did ot need the extra information and found it cluttered the screen.
 
 ### Changes / Improvements
 
-Replace this text with notes any improvements you made as a result of the testing.
+Removed the history page and help button.
 
-*FIGMA IMPROVED REFINED PROTOTYPE - PLACE THE FIGMA EMBED CODE HERE - MAKE SURE IT IS SET SO THAT EVERYONE CAN ACCESS IT*
+<iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://embed.figma.com/design/FAtnwKYplCbmfZmA5pJVsg/Prototype-2-refined?node-id=0-1&embed-host=share" allowfullscreen></iframe>
 
 
 ---
 
 ## Sprint Review
 
-Replace this text with a statement about how the sprint has moved the project forward - key success point, any things that didn't go so well, etc.
+Removing certain aspects of the design was dissapointing, though it allows for a more streamlined and simple layout for the user, which they enjoy. The end-user is very pleased with the final design and would like the web app to look very similar to the refined prototype.
 
